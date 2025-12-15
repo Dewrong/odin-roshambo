@@ -43,6 +43,8 @@ let computerScore = 0;
 
 function playRound(humanChoice){
 
+    const scores = document.querySelector(".messages");
+    scores.innerHTML = '';
     
     let computerChoice = GetComputerChoice();
     
@@ -54,8 +56,7 @@ function playRound(humanChoice){
     const roundResult = document.createElement("p");
 
     if(humanChoice == computerChoice){
-        roundResult.textContent = "Tie! Go again.";
-        return;
+        roundResult.textContent = "Tie! Go again.";        
     }
     else{
         if((humanChoice  == "Rock" && computerChoice == "Scissors") || (humanChoice  == "Paper" && computerChoice == "Rock") || (humanChoice  == "Scissors" && computerChoice == "Paper")){
@@ -68,18 +69,29 @@ function playRound(humanChoice){
         }
     }
 
-    const appendMessage = querySelector("#scores");
+    const appendMessage = document.querySelector(".messages");
+    appendMessage.appendChild(computerResult);
+    appendMessage.appendChild(humanResult);
+    appendMessage.appendChild(roundResult);
 
     const gameResult = document.createElement("p");
 
+    const currentScore = document.createElement("p");
     if(humanScore + computerScore == 5){
-        console.log(`Final Score: ${humanScore} - ${computerScore}.`)
+        currentScore.textContent = `Final Score: ${humanScore} - ${computerScore}.`;
         if(humanScore > computerScore){
             gameResult.textContent = "You won!";
         }
         else{
             gameResult.textContent = "You lost!";
         }
+        appendMessage.appendChild(currentScore);
+        appendMessage.appendChild(gameResult);
+    }
+    else{
+        currentScore.textContent = `Current Score: ${humanScore} - ${computerScore}`;
+        appendMessage.appendChild(currentScore);
+
     }
 
 }
